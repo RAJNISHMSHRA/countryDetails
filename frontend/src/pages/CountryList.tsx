@@ -114,7 +114,7 @@ const CountryList: React.FC = () => {
     vertical: "top",
     horizontal: "center",
   });
-  const { vertical, horizontal, open } = snackbar;
+  const { vertical, horizontal} = snackbar;
   const handleClose = () => {
     setSnakBar({ ...snackbar, open: false });
   };
@@ -226,7 +226,7 @@ const CountryList: React.FC = () => {
     }
   }, []);
 
-  
+
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

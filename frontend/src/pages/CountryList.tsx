@@ -7,7 +7,6 @@ import {
   searchAllName,
 } from "../features/countries/countrySlice";
 import CountryCard from "../components/CountryCard";
-import Loader from "../components/Loader";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchBar from "../components/SearchBar";
 import styled from "styled-components";
@@ -142,13 +141,14 @@ const CountryList: React.FC = () => {
     }
   }, [countries, allCountry]);
 
+
   useEffect(() => {
     setVisibleCountries(
       countries && countries.length
         ? countries.slice(0, currentPage * countriesPerPage)
         : allCountry.slice(0, currentPage * countriesPerPage)
     );
-  }, [countries, allCountry, currentPage]);
+  }, [countries, allCountry, currentPage,countriesPerPage]);
 
   const extractTimezones = (countriesData: any[]) => {
     const timezonesSet = new Set();
@@ -226,6 +226,7 @@ const CountryList: React.FC = () => {
     }
   }, []);
 
+  
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {

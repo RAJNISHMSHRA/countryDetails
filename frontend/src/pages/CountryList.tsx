@@ -4,13 +4,14 @@ import {
   fetchCountries,
   searchCountry,
   searchDataFilter,
-  searchAllName
+  searchAllName,
 } from "../features/countries/countrySlice";
 import CountryCard from "../components/CountryCard";
 import Loader from "../components/Loader";
-import CancelIcon from '@mui/icons-material/Cancel';
+import CancelIcon from "@mui/icons-material/Cancel";
 import SearchBar from "../components/SearchBar";
 import styled from "styled-components";
+
 import {
   Typography,
   MenuItem,
@@ -19,8 +20,16 @@ import {
   InputLabel,
   SelectChangeEvent,
   Button,
+  Snackbar,
+  SnackbarOrigin,
+  Alert,
 } from "@mui/material";
 import Loaders from "../components/Loaders";
+import { Box } from "@mui/system";
+
+interface State extends SnackbarOrigin {
+  open: boolean;
+}
 
 // Styled Components
 const Container = styled.div`
@@ -58,7 +67,6 @@ const FilterGroup = styled.div`
 `;
 
 const FilterFormControl = styled(FormControl)`
-
   min-width: 22%;
 
   @media (max-width: 768px) {
@@ -92,14 +100,26 @@ const CountryGrid = styled.div`
 
 const CountryList: React.FC = () => {
   const dispatch = useDispatch();
-  const { countries,allCountry,searched, loading, error } = useSelector(
+  const { countries, allCountry, searched, loading, error } = useSelector(
     (state: any) => state.countries
   );
 
-  const [filters, setFilters] = useState<any>({ name: searched, region: [], timezone: [] });
+  const [filters, setFilters] = useState<any>({
+    name: searched,
+    region: [],
+    timezone: [],
+  });
   const [timeZones, setTimeZones] = useState<string>("");
   const [selectedRegion, setSelectedRegion] = useState<string>("");
-  
+  const [snackbar, setSnakBar] = React.useState<State>({
+    open: error && error.length > 0,
+    vertical: "top",
+    horizontal: "center",
+  });
+  const { vertical, horizontal, open } = snackbar;
+  const handleClose = () => {
+    setSnakBar({ ...snackbar, open: false });
+  };
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -114,21 +134,31 @@ const CountryList: React.FC = () => {
     if (allCountry.length > 0) {
       const uniqueTimeZones = extractTimezones(allCountry);
       const uniqueRegions = extractRegions(allCountry);
-      
-      setFilters((prev:any) => ({ ...prev, timezone: uniqueTimeZones, region: uniqueRegions }));
+
+      setFilters((prev: any) => ({
+        ...prev,
+        timezone: uniqueTimeZones,
+        region: uniqueRegions,
+      }));
     }
-  }, [countries,allCountry]);
+  }, [countries, allCountry]);
 
   useEffect(() => {
-    setVisibleCountries(countries && countries.length ?countries.slice(0, currentPage * countriesPerPage): allCountry.slice(0, currentPage * countriesPerPage));
-  }, [countries,allCountry, currentPage]);
+    setVisibleCountries(
+      countries && countries.length
+        ? countries.slice(0, currentPage * countriesPerPage)
+        : allCountry.slice(0, currentPage * countriesPerPage)
+    );
+  }, [countries, allCountry, currentPage]);
 
   const extractTimezones = (countriesData: any[]) => {
     const timezonesSet = new Set();
 
     countriesData.forEach((country) => {
       if (country.timezones) {
-        country.timezones.forEach((timezone: any) => timezonesSet.add(timezone));
+        country.timezones.forEach((timezone: any) =>
+          timezonesSet.add(timezone)
+        );
       }
     });
 
@@ -137,24 +167,31 @@ const CountryList: React.FC = () => {
 
   const extractRegions = (countriesData: any[]) => {
     const regionSet = new Set<string>();
-  
+
     countriesData.forEach((country) => {
       // Ensure that country.region is defined and is a string
-      if (country && typeof country.region === 'string' && country.region.trim() !== '') {
+      if (
+        country &&
+        typeof country.region === "string" &&
+        country.region.trim() !== ""
+      ) {
         regionSet.add(country.region);
       } else {
         // Logging to check for problematic entries
-        console.warn('Skipping invalid region data:', country);
+        console.warn("Skipping invalid region data:", country);
       }
     });
-  
+
     // Convert set to array and sort alphabetically
     return Array.from(regionSet).sort();
   };
-  
 
   const handleSearch = () => {
-    const params = { name: searched, region: selectedRegion, timezone: timeZones };
+    const params = {
+      name: searched,
+      region: selectedRegion,
+      timezone: timeZones,
+    };
     dispatch(searchDataFilter(params));
   };
 
@@ -169,12 +206,12 @@ const CountryList: React.FC = () => {
   };
 
   const clearFilters = () => {
-    setSelectedRegion('');
-    setTimeZones('');
-    dispatch(searchCountry(''))
+    setSelectedRegion("");
+    setTimeZones("");
+    dispatch(searchCountry(""));
     dispatch(fetchCountries());
-    dispatch(searchAllName(''));
-    dispatch(searchDataFilter(''));
+    dispatch(searchAllName(""));
+    dispatch(searchDataFilter(""));
   };
 
   const loadMoreCountries = () => {
@@ -211,7 +248,7 @@ const CountryList: React.FC = () => {
         <FilterGroup>
           <SearchBar label="Global Search" />
           <SearchBar label="Search by country" />
-          <FilterFormControl style={{minWidth:'22%'}}>
+          <FilterFormControl style={{ minWidth: "22%" }}>
             <InputLabel id="region-select-label">Filter by Region</InputLabel>
             <Select
               labelId="region-select-label"
@@ -226,8 +263,10 @@ const CountryList: React.FC = () => {
               ))}
             </Select>
           </FilterFormControl>
-          <FilterFormControl style={{minWidth:'22%'}}>
-            <InputLabel id="timezone-select-label">Filter by Timezone</InputLabel>
+          <FilterFormControl style={{ minWidth: "22%" }}>
+            <InputLabel id="timezone-select-label">
+              Filter by Timezone
+            </InputLabel>
             <Select
               labelId="timezone-select-label"
               value={timeZones}
@@ -263,9 +302,23 @@ const CountryList: React.FC = () => {
           <CountryCard key={country.cca3} country={country} />
         ))}
       </CountryGrid>
+      <Box sx={{ width: 500 }}>
+        <Snackbar
+          anchorOrigin={{ vertical, horizontal }}
+          open={error?.length > 0}
+          onClose={handleClose}
+          message={error}
+          key={vertical + horizontal}
+          sx={{ background: "red" }}
+        />
+      </Box>
       {visibleCountries.length < countries.length && !loading && (
         <LoadMoreButtonWrapper>
-          <Button onClick={loadMoreCountries} variant="contained" color="primary">
+          <Button
+            onClick={loadMoreCountries}
+            variant="contained"
+            color="primary"
+          >
             Load More
           </Button>
         </LoadMoreButtonWrapper>

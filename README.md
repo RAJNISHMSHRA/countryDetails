@@ -1,12 +1,10 @@
 
 # Country Finder
-[Country Explorer](https://countrytyffon.netlify.app/)
+LINK to app (Demo) : [Country Explorer](https://countrytyffon.netlify.app/)
 
 
 **Country Finder** is a React application that allows users to explore information about different countries, including their population, region, currencies, languages, and more.
 
-
-[Country Explorer](https://countrytyffon.netlify.app/)
 
 
 ## Application Screenshot

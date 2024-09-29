@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Typography, Button, Box } from '@mui/material';
+import { Container, Typography, Button} from '@mui/material';
 import { Link } from 'react-router-dom'; // Import Link for navigation
 import { useTheme } from '@mui/material/styles';
 import notfound from '../images/404-page-not-found.svg'
@@ -37,7 +37,7 @@ const NotFoundPage: React.FC = () => {
         variant="contained"
         color="primary"
         component={Link}
-        to="/" // Replace with your home route
+        to="/" 
         sx={{ padding: theme.spacing(1, 4) }}
       >
         Go Back to Home

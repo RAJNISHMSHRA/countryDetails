@@ -9,7 +9,7 @@ Here is a preview of the Country Explorer application:
 
 ![Country Explorer Screenshot](./frontend/src/images/pic.png)
 ![Country Explorer Screenshot](./frontend/src/images/pic2.png)
-![Country Explorer Screenshot](./frontend/src/images/pic3.png)
+![Country Explorer Screenshot](./frontend/src/images/pic4.png)
 
 
 ## Table of Contents
@@ -130,8 +130,10 @@ This project utilizes React Router for client-side routing. Below are the main r
 ## Features
 
 - Browse and search countries.
-- View country details including population, region, languages, and currencies.
+- View country details including population, region, languages, and currencies charts.
 - Filter countries by region or subregion.
+- First filter is global to search country on basis of capital,name ,population etc.
+- Comparison chart page comparing top 10 country by population and languages spoken
 - User-friendly interface with Material-UI components.
 
 ## Enhancements

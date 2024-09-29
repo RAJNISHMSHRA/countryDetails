@@ -7,8 +7,8 @@
 
 Here is a preview of the Country Explorer application:
 
-![Country Explorer Screenshot](./images/pic.png)
-![Country Explorer Screenshot](./images/pic2.png)
+![Country Explorer Screenshot](./frontend/images/images/pic.png)
+![Country Explorer Screenshot](./frontend/images/pic2.png)
 
 
 ## Table of Contents

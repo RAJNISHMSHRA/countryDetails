@@ -240,7 +240,7 @@ const CountryList: React.FC = () => {
         variant="h4"
         gutterBottom
         textAlign="center"
-        style={{ marginBottom: 40 }}
+        style={{ marginBottom: 40 ,marginTop:40}}
       >
         Country List
       </Typography>

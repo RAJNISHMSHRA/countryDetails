@@ -8,10 +8,10 @@ import AboutComponent from '../pages/AboutPage';
 const AppRoutes: React.FC = () => {
     return (
         <Routes>
-            <Route path="/" element={<CountryList />} /> {/* Home Page */}
-            <Route path="/country/:code" element={<CountryDetail />} /> {/* Country Detail Page */}
-            <Route path="/about" element={<AboutComponent />} /> {/* About Page */}
-            <Route path="*" element={<NotFoundPage />} /> {/* 404 Not Found */}
+            <Route path="/" element={<CountryList />} /> 
+            <Route path="/country/:code" element={<CountryDetail />} /> 
+            <Route path="/about" element={<AboutComponent />} /> 
+            <Route path="*" element={<NotFoundPage />} /> 
         </Routes>
     );
 };

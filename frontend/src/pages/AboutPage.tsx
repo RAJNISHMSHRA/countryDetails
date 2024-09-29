@@ -48,7 +48,7 @@ const AboutComponent: React.FC = () => {
     },
   ];
 
-  // Prepare data for the Pie Chart (Languages spoken)
+  
   const languages = countriesData.flatMap(country => Object.values(country.languages));
   const languageCounts = languages.reduce((acc: { [key: string]: number }, lang: string) => {
     acc[lang] = (acc[lang] || 0) + 1;
@@ -57,7 +57,7 @@ const AboutComponent: React.FC = () => {
 
   const languageData: (string | number)[][] = [["Language", "Count"], ...Object.entries(languageCounts).map(([key, value]) => [key, value])];
 
-  // Prepare data for the Bar Chart (Population)
+
   const populationData: (string | number)[][] = [["Country", "Population"], ...countriesData.map(country => [country.name.common, country.population])];
 
   return (

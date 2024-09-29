@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Container, Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+
 // Styled Components
 const StyledAppBar = styled(AppBar)`
   background-color: #1976d2;

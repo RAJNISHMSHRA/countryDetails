@@ -81,7 +81,7 @@ To get started with the project, follow these steps:
 ## Project Structure
 
 ```
-country-explorer/
+country-explorer/frontend
 ├── src/
 │   ├── components/        # Reusable components
 │   ├── features/          # Redux slices and state management
@@ -98,6 +98,28 @@ country-explorer/
 ├── README.md              # Project documentation
 └── package.json           # Project metadata and dependencies
 ```
+
+country-explorer-backend/
+├── src/
+│   ├── v1/
+│   │   ├── controller/             # Contains controller files for handling requests
+│   │   │   └── countryController.ts # Controller for country-related logic
+│   │   ├── routes/                  # Contains route definitions
+│   │   │   └── countryRoutes.ts      # Route definitions for countries
+│   │   └── middleware/              # Middleware functions
+│   │       └── errorHandler.ts      # Error handling middleware
+│   ├── config/                      # Configuration files
+│   │   └── index.ts                 # General configuration (like database config)
+│   ├── types/                       # TypeScript types and interfaces
+│   │   └── country.ts               # Type definitions for country data
+│   ├── index.ts                     # Main application file
+│   └── utils/                       # Utility functions
+│       └── helpers.ts               # Helper functions used in controllers
+├── .env                             # Environment variables
+├── .gitignore                       # Files to ignore in the repository
+├── package.json                     # Project metadata and dependencies
+└── tsconfig.json                    # TypeScript configuration
+
 
 ## API Endpoints
 
@@ -135,6 +157,7 @@ This project utilizes React Router for client-side routing. Below are the main r
 - First filter is global to search country on basis of capital,name ,population etc.
 - Comparison chart page comparing top 10 country by population and languages spoken
 - User-friendly interface with Material-UI components.
+- Infinite Scroll of country.
 
 ## Enhancements
 

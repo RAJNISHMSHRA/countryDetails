@@ -9,6 +9,7 @@ Here is a preview of the Country Explorer application:
 
 ![Country Explorer Screenshot](./frontend/images/images/pic.png)
 ![Country Explorer Screenshot](./frontend/images/pic2.png)
+![Country Explorer Screenshot](./frontend/images/pic3.png)
 
 
 ## Table of Contents
@@ -32,7 +33,11 @@ Here is a preview of the Country Explorer application:
 - **Material-UI**: React component library for UI design.
 - **React Router DOM**: For client-side routing.
 
-### Backend (if applicable):
+### Backend :
+- **Express**: JavaScript library for making servers.
+- **TypeScript**: A superset of JavaScript that adds static types.
+- **cors**: cors handling
+- **Node js**: server side 
 
 - **API Source**: [REST Countries API](https://restcountries.com/v3.1/), used for fetching country data.
 
@@ -43,9 +48,13 @@ To get started with the project, follow these steps:
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/yourusername/country-explorer.git
+   git clone https://github.com/RAJNISHMSHRA/countryDetails.git
    cd country-explorer
    ```
+    **For running client frontend:**
+   cd frontend
+   np install
+   npm start
 
 2. **Install dependencies:**
 
@@ -56,14 +65,16 @@ To get started with the project, follow these steps:
 3. **Create a `.env` file** in the root directory and add your environment variables:
 
    ```bash
-   REACT_APP_API_URL=https://restcountries.com/v3.1/
+   REACT_APP_API_URL=https://restcountries.com/v3.1/ or REACT_APP_API_URL=http://localhost:5000(for running server locally)
    ```
 
 4. **Start the development server:**
+      
+    **For running Server:**
+   cd frontend
+   np install
+   npm run dev
 
-   ```bash
-   npm start
-   ```
 
 5. Open your browser and navigate to [http://localhost:3000](http://localhost:3000).
 
@@ -93,12 +104,12 @@ country-explorer/
 Here are the main API endpoints used in this project:
 
 - **Get all countries:**
-  - **URL**: `https://restcountries.com/v3.1/all`
+  - **URL**: `https://restcountries.com/v3.1/all`: http://localhost:5000/countries
   - **Method**: GET
   - **Description**: Returns a list of all countries with detailed information.
 
 - **Get country by code:**
-  - **URL**: `https://restcountries.com/v3.1/alpha/{code}`
+  - **URL**: `https://restcountries.com/v3.1/alpha/{code}` :http://localhost:5000/countries/SGS
   - **Method**: GET
   - **Description**: Returns detailed information about a country by its alpha code.
 
@@ -112,7 +123,9 @@ Here are the main API endpoints used in this project:
 This project utilizes React Router for client-side routing. Below are the main routes defined in the application:
 
 - **Home Page** (`/`): Displays a list of all countries.
-- **Country Details** (`/country/:code`): Shows detailed information about a specific country.
+- **Country Details** (`/country/:code`): Shows detailed information about a specific country with map and chart.
+- **Home Page** (`/about`): Displays a chart list of all countries.
+- **Country Details** (`*`): Error handling page for wrong url typed with nav back home
 
 ## Features
 
@@ -123,11 +136,11 @@ This project utilizes React Router for client-side routing. Below are the main r
 
 ## Enhancements
 
-- Implement dark mode toggle.
 - Add pagination for country list.
 - Include a map view for visualizing country locations.
-- Add a favorites feature for users to save preferred countries.
+- filters  feature fto view specific data of country
+- Include chart in about feature for population and languages spokenview for visualizing country locations.
+
 
 ## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+@Rajnish Mishra / rajnish.misraa@gmail.com

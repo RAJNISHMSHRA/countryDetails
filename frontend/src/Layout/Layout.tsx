@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 
-// Styled Components
 const StyledAppBar = styled(AppBar)`
   background-color: #1976d2;
   position: static;
@@ -63,7 +62,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
           {/* Navigation items with hover effect */}
           <nav>
             <StyledLink to="/">Home</StyledLink>
-            <StyledLink to="/about">About</StyledLink>
+            <StyledLink to="/charts">Charts</StyledLink>
           </nav>
         </Toolbar>
       </StyledAppBar>
@@ -73,7 +72,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         {children}
       </MainContainer>
 
-      {/* Fixed Footer */}
+
       <Footer>
         <Typography variant="body1">© 2024 Country Finder</Typography>
       </Footer>

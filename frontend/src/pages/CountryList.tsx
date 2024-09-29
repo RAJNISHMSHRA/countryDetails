@@ -114,7 +114,7 @@ const CountryList: React.FC = () => {
     vertical: "top",
     horizontal: "center",
   });
-  const { vertical, horizontal} = snackbar;
+  const { vertical, horizontal } = snackbar;
   const handleClose = () => {
     setSnakBar({ ...snackbar, open: false });
   };
@@ -141,14 +141,13 @@ const CountryList: React.FC = () => {
     }
   }, [countries, allCountry]);
 
-
   useEffect(() => {
     setVisibleCountries(
       countries && countries.length
         ? countries.slice(0, currentPage * countriesPerPage)
         : allCountry.slice(0, currentPage * countriesPerPage)
     );
-  }, [countries, allCountry, currentPage,countriesPerPage]);
+  }, [countries, allCountry, currentPage, countriesPerPage]);
 
   const extractTimezones = (countriesData: any[]) => {
     const timezonesSet = new Set();
@@ -226,7 +225,6 @@ const CountryList: React.FC = () => {
     }
   }, []);
 
-
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
     return () => {
@@ -240,7 +238,7 @@ const CountryList: React.FC = () => {
         variant="h4"
         gutterBottom
         textAlign="center"
-        style={{ marginBottom: 40 ,marginTop:40}}
+        style={{ marginBottom: 40, marginTop: 40 }}
       >
         Country List
       </Typography>

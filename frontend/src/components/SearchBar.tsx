@@ -22,7 +22,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ label }) => {
         }
     };
 
-    // Determine the value based on the label
+  
     const value = label === 'Global Search' ? searchedAll : 
                   label === 'Search by country' ? searched : '';
 

@@ -1,4 +1,4 @@
-
+// src/About.tsx
 import React, { useEffect } from 'react';
 import { Chart } from 'react-google-charts';
 import { useSelector } from "../store/store";
@@ -38,8 +38,8 @@ const AboutComponent: React.FC = () => {
     return acc;
   }, {});
 
-  const languageData: (string | number)[][] = [["Language", "Count"], ...Object.entries(languageCounts).map(([key, value]) => [key, value])];
-  const populationData: (string | number)[][] = [["Country", "Population"], ...data.map(country => [country.name.common, country.population])];
+  const languageData: (string | number)[][] = [["Language", "Count"], ...Object.entries(languageCounts).sort(([, a], [, b]) => b - a).slice(0, 10).map(([key, value]) => [key, value])];
+  const populationData: (string | number)[][] = [["Country", "Population"], ...data.sort((a, b) => b.population - a.population).slice(0, 10).map(country => [country.name.common, country.population])];
 
   if (!data.length) {
     return <div>No country data available.</div>;
@@ -49,14 +49,14 @@ const AboutComponent: React.FC = () => {
     <div style={{ padding: '20px', backgroundColor: '#f9f9f9' }}>
       <h1>About Countries</h1>
 
-      <h2>Population by Country</h2>
+      <h2>Top 10 Population by Country</h2>
       <Chart
         chartType="Bar"
         width="100%"
         height="400px"
         data={populationData}
         options={{
-          title: 'Population by Country',
+          title: 'Top 10 Countries by Population',
           chartArea: { width: '50%' },
           hAxis: {
             title: 'Total Population',
@@ -68,14 +68,14 @@ const AboutComponent: React.FC = () => {
         }}
       />
 
-      <h2>Languages Spoken</h2>
+      <h2>Top 10 Languages Spoken</h2>
       <Chart
         chartType="PieChart"
         width="100%"
         height="400px"
         data={languageData}
         options={{
-          title: 'Languages Spoken in Countries',
+          title: 'Top 10 Languages Spoken in Countries',
           is3D: true,
         }}
       />

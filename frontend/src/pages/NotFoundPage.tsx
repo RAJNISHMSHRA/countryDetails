@@ -19,7 +19,7 @@ const NotFoundPage: React.FC = () => {
         height: '100vh',
       }}
     >
-      {/* Display an image */}
+  
       <img 
         src={notfound}
         alt="Page not found"
@@ -32,7 +32,7 @@ const NotFoundPage: React.FC = () => {
         Oops! The page you are looking for does not exist.
       </Typography>
       
-      {/* Navigation button */}
+  
       <Button
         variant="contained"
         color="primary"

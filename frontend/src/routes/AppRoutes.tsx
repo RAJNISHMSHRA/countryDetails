@@ -10,7 +10,7 @@ const AppRoutes: React.FC = () => {
         <Routes>
             <Route path="/" element={<CountryList />} /> 
             <Route path="/country/:code" element={<CountryDetail />} /> 
-            <Route path="/about" element={<AboutComponent />} /> 
+            <Route path="/charts" element={<AboutComponent />} /> 
             <Route path="*" element={<NotFoundPage />} /> 
         </Routes>
     );

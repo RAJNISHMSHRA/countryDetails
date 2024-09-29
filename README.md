@@ -98,7 +98,7 @@ country-explorer/frontend
 ├── README.md              # Project documentation
 └── package.json           # Project metadata and dependencies
 ```
-
+```
 country-explorer-backend/
 ├── src/
 │   ├── v1/
@@ -119,8 +119,7 @@ country-explorer-backend/
 ├── .gitignore                       # Files to ignore in the repository
 ├── package.json                     # Project metadata and dependencies
 └── tsconfig.json                    # TypeScript configuration
-
-
+```ß
 ## API Endpoints
 
 Here are the main API endpoints used in this project:

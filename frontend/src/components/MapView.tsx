@@ -24,7 +24,7 @@ const MapView: React.FC<MapViewProps> = ({ latitude, longitude }) => {
     const position: [number, number] = [latitude, longitude];
 
     return (
-        <MapContainer center={position} zoom={12} style={{ height: '400px', width: '100%',padding:'10%' }}>
+        <MapContainer center={position} zoom={5} style={{ height: '400px', width: '100%',padding:'10%' }}>
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'

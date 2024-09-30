@@ -37,7 +37,7 @@ export const fetchCountryByCode = async (code: string): Promise<Country> => {
 export const searchBykey = async (params: CountrySearchParams): Promise<Country[]> => {
     try {
         // const response = await axios.get(`${API_URL}/search?name=${name}`); // Use backticks
-        const response = await axios.get<Country[]>(`http://localhost:5000/search`, { params });
+        const response = await axios.get<Country[]>(`${apiUrl}/search`, { params });
         return response.data;
     } catch (error) {
         console.error(`Error fetching country by key:`, error);
@@ -46,7 +46,7 @@ export const searchBykey = async (params: CountrySearchParams): Promise<Country[
 };
 export const fetchDataFilter = async (params: CountrySearchParams): Promise<Country[]> => {
     try {
-        const response = await axios.get<Country[]>('http://localhost:5000/countries/search', { params });
+        const response = await axios.get<Country[]>(`${apiUrl}/countries/search`, { params });
         return response.data;
     } catch (error) {
         console.error('Error fetching countries:', error);
@@ -67,7 +67,7 @@ export const fetchCountriesByRegion = async (region: string): Promise<Country[]>
 export const fetchCountriesByTimezone = async (params: any): Promise<Country[]> => {
     try {
         // const response = await axios.get(`${API_URL}/search?timezone=${timezone}`); // Use backticks
-        const response = await axios.get<Country[]>(`http://localhost:5000/search`, { params });
+        const response = await axios.get<Country[]>(`${apiUrl}/search`, { params });
         return response.data;
     } catch (error) {
         console.error(`Error fetching countries by timezone ${params.key}:`, error);

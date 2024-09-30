@@ -10,6 +10,7 @@ import Loaders from "../components/Loaders";
 // Styled Components
 const Container = styled.div`
   padding: 20px;
+  margin-top:5%
 `;
 
 const StyledCard = styled(Card)`

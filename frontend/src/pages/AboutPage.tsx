@@ -37,8 +37,11 @@ const AboutComponent: React.FC = () => {
     const handleResize = () => {
       if (window.innerWidth < 600) {
         setChartHeight('300px');  
+        setChartWidth('100%')
       } else {
         setChartHeight('400px');  
+        setChartWidth('100%')
+
       }
     };
 
@@ -60,7 +63,7 @@ const AboutComponent: React.FC = () => {
   const populationData: (string | number)[][] = [["Country", "Population"], ...data.sort((a, b) => b.population - a.population).slice(0, 10).map(country => [country.name.common, country.population])];
 
   if (!data.length) {
-    return <div>No country data available.</div>;
+    return <div style={{alignSelf:'center'}}>No country data available.</div>;
   }
 
   const barChartOptions = {

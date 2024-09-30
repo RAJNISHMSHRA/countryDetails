@@ -30,6 +30,7 @@ const ContentWrapper = styled.div`
   }
 `;
 
+
 const InfoWrapper = styled.div`
   max-width: 60%;
   @media (max-width: 768px) {

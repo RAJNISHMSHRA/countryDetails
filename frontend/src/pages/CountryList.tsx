@@ -22,14 +22,14 @@ import {
   SnackbarOrigin,
 } from "@mui/material";
 import Loaders from "../components/Loaders";
-import { Box } from "@mui/system";
+
 import { motion } from "framer-motion"; // Import motion
 
 interface State extends SnackbarOrigin {
   open: boolean;
 }
 
-// Styled Components
+
 const Container = styled.section`
   max-width: 1200px;
   margin: 0 auto;
@@ -218,7 +218,7 @@ const CountryList: React.FC = () => {
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === "Enter") {
-      handleSearch();  // Trigger search on Enter key press
+      handleSearch();  
     }
   };
 
@@ -234,9 +234,9 @@ const CountryList: React.FC = () => {
         Country List
       </Typography>
       <FilterSection
-        initial={{ opacity: 0, y: -20 }}  // Initial state
-        animate={{ opacity: 1, y: 0 }}    // Animate to this state
-        transition={{ duration: 0.5 }}      // Transition duration
+        initial={{ opacity: 0, y: -20 }}  
+        animate={{ opacity: 1, y: 0 }}   
+        transition={{ duration: 0.5 }}     
         aria-label="Filter section"
       >
         <FilterGroup>
@@ -276,7 +276,7 @@ const CountryList: React.FC = () => {
               value={timeZones}
               onChange={handleTimezoneChange}
               aria-label="Filter by Timezone"
-              onKeyDown={handleKeyDown}  // Listen for "Enter" key
+              onKeyDown={handleKeyDown}  
             >
               <MenuItem value="">All Timezones</MenuItem>
               {filters.timezone.map((item: string, key: number) => (
@@ -305,19 +305,19 @@ const CountryList: React.FC = () => {
         </FilterGroup>
       </FilterSection>
 
-      {/* Animated Country Grid */}
+     
       <CountryGrid
-        initial={{ opacity: 0 }} // Initial state
-        animate={{ opacity: 1 }} // Animate to this state
-        transition={{ duration: 0.5 }} // Transition duration
+        initial={{ opacity: 0 }} 
+        animate={{ opacity: 1 }} 
+        transition={{ duration: 0.5 }} 
       >
         {loading && <Loaders />}
         {visibleCountries.map((country, index) => (
           <motion.div
             key={country.name}
-            initial={{ opacity: 0, y: 20 }} // Initial state for each card
-            animate={{ opacity: 1, y: 0 }}   // Animate to this state
-            transition={{ duration: 0.3, delay: index * 0.1 }} // Animate each card with delay
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }}   
+            transition={{ duration: 0.3, delay: index * 0.1 }} 
           >
             <CountryCard country={country} />
           </motion.div>
@@ -330,7 +330,7 @@ const CountryList: React.FC = () => {
         </Button>
       </LoadMoreButtonWrapper>
 
-      {/* Snackbar for error messages */}
+      
       <Snackbar
         anchorOrigin={{ vertical, horizontal }}
         open={snackbar.open}

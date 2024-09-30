@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "../store/store";
 import { fetchCountry} from "../features/countries/countrySlice";
 import { useParams, useNavigate } from "react-router-dom";
 import { Typography, Card, CardContent, Box } from "@mui/material";
-import Loader from "../components/Loader";
 import MapView from "../components/MapView";
 import styled from "styled-components";
+import Loaders from "../components/Loaders";
 
 // Styled Components
 const Container = styled.div`
@@ -81,7 +81,7 @@ const CountryDetail: React.FC = () => {
 
   return (
     <Container>
-      {loading && <Loader />}
+      {loading && <Loaders />}
       {error && <Typography color="error">{error}</Typography>}
       {selectedCountry && (
         <StyledCard>

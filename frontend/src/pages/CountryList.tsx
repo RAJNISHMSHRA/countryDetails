@@ -10,7 +10,6 @@ import CountryCard from "../components/CountryCard";
 import CancelIcon from "@mui/icons-material/Cancel";
 import SearchBar from "../components/SearchBar";
 import styled from "styled-components";
-
 import {
   Typography,
   MenuItem,
@@ -24,28 +23,27 @@ import {
 } from "@mui/material";
 import Loaders from "../components/Loaders";
 import { Box } from "@mui/system";
+import { motion } from "framer-motion"; // Import motion
 
 interface State extends SnackbarOrigin {
   open: boolean;
 }
 
 // Styled Components
-const Container = styled.div`
+const Container = styled.section`
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-
   @media (max-width: 768px) {
     padding: 10px;
   }
 `;
 
-const FilterSection = styled.div`
+const FilterSection = styled(motion.section)` // Wrap with motion
   display: flex;
   flex-direction: column;
   align-items: center;
   margin-bottom: 40px;
-
   @media (min-width: 768px) {
     flex-direction: row;
     justify-content: space-between;
@@ -58,7 +56,6 @@ const FilterGroup = styled.div`
   gap: 15px;
   flex-wrap: wrap;
   width: 100%;
-
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -66,7 +63,6 @@ const FilterGroup = styled.div`
 
 const FilterFormControl = styled(FormControl)`
   min-width: 22%;
-
   @media (max-width: 768px) {
     width: 100%;
   }
@@ -78,22 +74,20 @@ const LoadMoreButtonWrapper = styled.div`
   margin-top: 40px;
 `;
 
-const CountryGrid = styled.div`
+const CountryGrid = styled(motion.section)` // Wrap with motion
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: 20px;
-
   @media (min-width: 600px) {
     grid-template-columns: repeat(2, 1fr);
   }
-
   @media (min-width: 900px) {
     grid-template-columns: repeat(3, 1fr);
   }
-
   @media (min-width: 1200px) {
     grid-template-columns: repeat(4, 1fr);
   }
+  padding-bottom: 20px;
 `;
 
 const CountryList: React.FC = () => {
@@ -132,7 +126,6 @@ const CountryList: React.FC = () => {
     if (allCountry.length > 0) {
       const uniqueTimeZones = extractTimezones(allCountry);
       const uniqueRegions = extractRegions(allCountry);
-
       setFilters((prev: any) => ({
         ...prev,
         timezone: uniqueTimeZones,
@@ -151,7 +144,6 @@ const CountryList: React.FC = () => {
 
   const extractTimezones = (countriesData: any[]) => {
     const timezonesSet = new Set();
-
     countriesData.forEach((country) => {
       if (country.timezones) {
         country.timezones.forEach((timezone: any) =>
@@ -159,28 +151,20 @@ const CountryList: React.FC = () => {
         );
       }
     });
-
     return Array.from(timezonesSet).sort();
   };
 
   const extractRegions = (countriesData: any[]) => {
     const regionSet = new Set<string>();
-
     countriesData.forEach((country) => {
-      // Ensure that country.region is defined and is a string
       if (
         country &&
         typeof country.region === "string" &&
         country.region.trim() !== ""
       ) {
         regionSet.add(country.region);
-      } else {
-        // Logging to check for problematic entries
-        console.warn("Skipping invalid region data:", country);
       }
     });
-
-    // Convert set to array and sort alphabetically
     return Array.from(regionSet).sort();
   };
 
@@ -232,26 +216,48 @@ const CountryList: React.FC = () => {
     };
   }, [handleScroll]);
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Enter") {
+      handleSearch();  // Trigger search on Enter key press
+    }
+  };
+
   return (
     <Container>
       <Typography
-        variant="h4"
+        variant="h1"
         gutterBottom
         textAlign="center"
         style={{ marginBottom: 40, marginTop: 40 }}
+        tabIndex={0}
       >
         Country List
       </Typography>
-      <FilterSection>
+      <FilterSection
+        initial={{ opacity: 0, y: -20 }}  // Initial state
+        animate={{ opacity: 1, y: 0 }}    // Animate to this state
+        transition={{ duration: 0.5 }}      // Transition duration
+        aria-label="Filter section"
+      >
         <FilterGroup>
-          <SearchBar label="Global Search" />
-          <SearchBar label="Search by country" />
+          <SearchBar
+            label="Global Search"
+            aria-label="Global Search"
+            onKeyDown={handleKeyDown}  
+          />
+          <SearchBar
+            label="Search by country"
+            aria-label="Search by country"
+            onKeyDown={handleKeyDown} 
+          />
           <FilterFormControl style={{ minWidth: "22%" }}>
             <InputLabel id="region-select-label">Filter by Region</InputLabel>
             <Select
               labelId="region-select-label"
               value={selectedRegion}
               onChange={handleRegionChange}
+              aria-label="Filter by Region"
+              onKeyDown={handleKeyDown}  
             >
               <MenuItem value="">All</MenuItem>
               {filters.region.map((item: string, key: number) => (
@@ -269,6 +275,8 @@ const CountryList: React.FC = () => {
               labelId="timezone-select-label"
               value={timeZones}
               onChange={handleTimezoneChange}
+              aria-label="Filter by Timezone"
+              onKeyDown={handleKeyDown}  // Listen for "Enter" key
             >
               <MenuItem value="">All Timezones</MenuItem>
               {filters.timezone.map((item: string, key: number) => (
@@ -278,49 +286,62 @@ const CountryList: React.FC = () => {
               ))}
             </Select>
           </FilterFormControl>
-          <Button onClick={handleSearch} variant="contained" color="primary">
+          <Button
+            onClick={handleSearch}
+            variant="contained"
+            color="primary"
+            aria-label="Apply Filters"
+          >
             Apply
           </Button>
-          <Button onClick={clearFilters} variant="contained" color="warning">
-            <CancelIcon />
+          <Button
+            onClick={clearFilters}
+            variant="contained"
+            color="warning"
+            aria-label="Clear Filters"
+          >
+            Clear
           </Button>
         </FilterGroup>
       </FilterSection>
-      {loading && <Loaders />}
-      {error && (
-        <Typography color="error" textAlign="center">
-          {error}
-        </Typography>
-      )}
-      {visibleCountries.length === 0 && !loading && (
-        <Typography textAlign="center">No countries found.</Typography>
-      )}
-      <CountryGrid>
-        {visibleCountries.map((country: any) => (
-          <CountryCard key={country.cca3} country={country} />
+
+      {/* Animated Country Grid */}
+      <CountryGrid
+        initial={{ opacity: 0 }} // Initial state
+        animate={{ opacity: 1 }} // Animate to this state
+        transition={{ duration: 0.5 }} // Transition duration
+      >
+        {loading && <Loaders />}
+        {visibleCountries.map((country, index) => (
+          <motion.div
+            key={country.name}
+            initial={{ opacity: 0, y: 20 }} // Initial state for each card
+            animate={{ opacity: 1, y: 0 }}   // Animate to this state
+            transition={{ duration: 0.3, delay: index * 0.1 }} // Animate each card with delay
+          >
+            <CountryCard country={country} />
+          </motion.div>
         ))}
       </CountryGrid>
-      <Box sx={{ width: 500 }}>
-        <Snackbar
-          anchorOrigin={{ vertical, horizontal }}
-          open={error?.length > 0}
-          onClose={handleClose}
-          message={error}
-          key={vertical + horizontal}
-          sx={{ background: "red" }}
-        />
-      </Box>
-      {visibleCountries.length < countries.length && !loading && (
-        <LoadMoreButtonWrapper>
-          <Button
-            onClick={loadMoreCountries}
-            variant="contained"
-            color="primary"
-          >
-            Load More
+
+      <LoadMoreButtonWrapper>
+        <Button onClick={loadMoreCountries} variant="contained">
+          Load More
+        </Button>
+      </LoadMoreButtonWrapper>
+
+      {/* Snackbar for error messages */}
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={snackbar.open}
+        onClose={handleClose}
+        message={error}
+        action={
+          <Button color="inherit" onClick={handleClose}>
+            <CancelIcon />
           </Button>
-        </LoadMoreButtonWrapper>
-      )}
+        }
+      />
     </Container>
   );
 };

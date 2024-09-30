@@ -120,7 +120,7 @@ const CountryDetail: React.FC = () => {
                     : "No border countries"}</Typography>
 
               </InfoWrapper>
-              <MapWrapper>
+              <MapWrapper style={{marginRight:'6%'}}>
                 <MapView
                   latitude={selectedCountry[0].latlng[0]}
                   longitude={selectedCountry[0].latlng[1]}

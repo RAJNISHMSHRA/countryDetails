@@ -225,7 +225,7 @@ const CountryList: React.FC = () => {
   return (
     <Container>
       <Typography
-        variant="h1"
+        variant="h3"
         gutterBottom
         textAlign="center"
         style={{ marginBottom: 40, marginTop: 40 }}

@@ -1,9 +1,7 @@
-// src/components/MapView.tsx
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
-
 
 const DefaultIcon = L.icon({
     iconUrl: require('leaflet/dist/images/marker-icon.png'),
@@ -21,15 +19,26 @@ interface MapViewProps {
 }
 
 const MapView: React.FC<MapViewProps> = ({ latitude, longitude }) => {
-    const position: [number, number] = [latitude, longitude];
+    const mapRef = useRef<any>(null);
+
+    useEffect(() => {
+        if (mapRef.current) {
+            mapRef.current.setView([latitude, longitude], mapRef.current.getZoom());
+        }
+    }, [latitude, longitude]);
 
     return (
-        <MapContainer center={position} zoom={5} style={{ height: '400px', width: '100%',padding:'10%' }}>
+        <MapContainer
+            center={[latitude, longitude]}
+            zoom={5}
+            style={{ height: '400px', width: '100%', padding: '10%' }}
+            ref={mapRef}
+        >
             <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             />
-            <Marker position={position}>
+            <Marker position={[latitude, longitude]}>
                 <Popup>
                     Country coordinates: {latitude}, {longitude}
                 </Popup>
@@ -38,5 +47,4 @@ const MapView: React.FC<MapViewProps> = ({ latitude, longitude }) => {
     );
 };
 
-export default MapView
-
+export default MapView;
